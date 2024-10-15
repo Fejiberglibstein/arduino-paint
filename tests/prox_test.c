@@ -46,4 +46,11 @@ void test_circle_intersection() {
         (Circle_t){.radius = 4.1231056, .center = (Point_t){.x = 5, .y = 5}},
         (Point_t){.x = 1, .y = 4}
     );
+
+    test_circles(
+        (Circle_t){.radius = 6.7082039, .center = (Point_t){.x = 12, .y = 9}},
+        (Circle_t){.radius = 5.9637991, .center = (Point_t){.x = 5.13, .y = 6.1}},
+        (Point_t){.x = 6, .y = 12}
+    );
+
 }
