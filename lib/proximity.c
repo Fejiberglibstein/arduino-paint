@@ -28,7 +28,7 @@ int circle_intersection(Circle_t c1, Circle_t c2, Point_t *res1, Point_t *res2) 
     float dist = sqrt(dx * dx + dy * dy);
 
     if (fabs(r1 - r2) > dist || dist > r1 + r2) {
-        return 1;
+        return 0;
     }
 
     float dist2 = dist * dist;
@@ -49,5 +49,5 @@ int circle_intersection(Circle_t c1, Circle_t c2, Point_t *res1, Point_t *res2) 
     *res1 = (Point_t){.x = fx + gx, .y = fy + gy};
     *res2 = (Point_t){.x = fx - gx, .y = fy - gy};
 
-    return 0;
+    return 2;
 }
