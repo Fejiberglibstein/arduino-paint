@@ -44,7 +44,7 @@ int circle_intersection(Circle_t c1, Circle_t c2, Point_t *res1, Point_t *res2) 
     float gx = c * (y2 - y1) / 2;
 
     float fy = (y1 + y2) / 2 + a * (y2 - y1);
-    float gy = c * (x2 - x1) / 2;
+    float gy = c * (x1 - x2) / 2;
 
     *res1 = (Point_t){.x = fx + gx, .y = fy + gy};
     *res2 = (Point_t){.x = fx - gx, .y = fy - gy};

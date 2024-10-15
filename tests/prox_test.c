@@ -42,8 +42,8 @@ void test_circle_intersection() {
     );
 
     test_circles(
-        (Circle_t){.radius = 5, .center = (Point_t){.x = 0, .y = 0}},
-        (Circle_t){.radius = 3, .center = (Point_t){.x = 8, .y = 0}},
-        (Point_t){.x = 5, .y = 0}
+        (Circle_t){.radius = 4.1231056, .center = (Point_t){.x = 0, .y = 0}},
+        (Circle_t){.radius = 4.1231056, .center = (Point_t){.x = 5, .y = 5}},
+        (Point_t){.x = 1, .y = 4}
     );
 }
