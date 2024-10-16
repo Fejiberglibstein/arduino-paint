@@ -4,6 +4,7 @@
 #include <sys/types.h>
 
 #define INTERSECTION_POINTS 12
+#define EPSILON 0.0001
 
 struct PointCount {
     Point_t point;
@@ -15,6 +16,18 @@ void add_point_count(
     uint *point_length,
     Point_t point
 ) {
+    for (int i = 0; i < *point_length; i++) {
+        Point_t cur = points[i].point;
+
+        // Same point
+        if (fabs(cur.x - point.x) < EPSILON && fabs(cur.y - point.y) < EPSILON) {
+            points[i].count += 1;
+            return;
+        }
+    }
+
+    *point_length += 1;
+    points[*point_length] = (struct PointCount){.point = point, .count = 1};
 }
 
 Point_t calculate_point(Circle_t circles[4]) {
@@ -24,6 +37,9 @@ Point_t calculate_point(Circle_t circles[4]) {
 
     // TODO: We probably don't need to do this many checks, we could probably
     // simplify to just adjacent circles?
+    //
+    // Removing this number of will require `INTERSECTION_POINTS` to be changed
+    // as well
     Circle_t patterns[6][2] = {
         {circles[0], circles[1]},
         {circles[0], circles[2]},
@@ -36,7 +52,7 @@ Point_t calculate_point(Circle_t circles[4]) {
     // Array of all possible circle intersection points. We use a count to
     // determine which point is most common; this will be our overall
     // intersection point
-    struct PointCount points[12] = {0};
+    struct PointCount points[INTERSECTION_POINTS] = {0};
     uint points_length = 0;
 
     // Go through all pairs of circles and get the two points of intersection
