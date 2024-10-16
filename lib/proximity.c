@@ -3,6 +3,20 @@
 #include <math.h>
 #include <sys/types.h>
 
+#define INTERSECTION_POINTS 12
+
+struct PointCount {
+    Point_t point;
+    uint count;
+};
+
+void add_point_count(
+    struct PointCount points[INTERSECTION_POINTS],
+    uint *point_length,
+    Point_t point
+) {
+}
+
 Point_t calculate_point(Circle_t circles[4]) {
     // We need to get the intersection point(s) between each pair of circles. We
     // can do this by creating an array of pairs of circles and iterating over
@@ -22,10 +36,7 @@ Point_t calculate_point(Circle_t circles[4]) {
     // Array of all possible circle intersection points. We use a count to
     // determine which point is most common; this will be our overall
     // intersection point
-    struct {
-        Point_t point;
-        u_int8_t count;
-    } points[12] = {0};
+    struct PointCount points[12] = {0};
     uint points_length = 0;
 
     // Go through all pairs of circles and get the two points of intersection
@@ -35,19 +46,27 @@ Point_t calculate_point(Circle_t circles[4]) {
 
         Point_t p[2] = {0};
         circle_intersection(pattern[0], pattern[1], &(p[0]), &(p[1]));
+
+        add_point_count(points, &points_length, p[0]);
+        add_point_count(points, &points_length, p[1]);
     }
+
+    uint best_pointcount = 0;
 
     // Find the most common point
     for (int i = 0; i < (sizeof(points) / sizeof(*points)); i++) {
+        if (points[i].count > points[best_pointcount].count) {
+            best_pointcount = i;
+        }
     }
 
-    return (Point_t){0};
+    return points[best_pointcount].point;
 }
 
-// https://gist.github.com/jupdike/bfe5eb23d1c395d8a0a1a4ddd94882ac
-// https://math.stackexchange.com/questions/256100/how-can-i-find-the-points-at-which-two-circles-intersect
-
 int circle_intersection(Circle_t c1, Circle_t c2, Point_t *res1, Point_t *res2) {
+    // https://gist.github.com/jupdike/bfe5eb23d1c395d8a0a1a4ddd94882ac
+    // https://math.stackexchange.com/questions/256100/how-can-i-find-the-points-at-which-two-circles-intersect
+
     assert(c1.radius > 0 && "Radius should be positive");
     assert(c2.radius > 0 && "Radius should be positive");
 
