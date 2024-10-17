@@ -58,17 +58,28 @@ void test_circle_intersection() {
 
 // https://www.desmos.com/calculator/mtrovlvxyv
 // Used to get the radii and expected points for the tests
-#define TEST_SIZE 1
+#define TEST_SIZE 2
 void test_calculate_point() {
 
-    Circle_t circle_test[TEST_SIZE][4] = {{
-        (Circle_t){.radius = 4.6341774, .center = {.x = 0, .y = 0}},
-        (Circle_t){.radius = 6.2829611, .center = {.x = 0, .y = 10}},
-        (Circle_t){.radius = 9.812013, .center = {.x = 10, .y = 10}},
-        (Circle_t){.radius = 8.8473499, .center = {.x = 10, .y = 0}},
-    }};
+    Circle_t circle_test[TEST_SIZE][4] = {
+        {
+            (Circle_t){.radius = 4.6341774, .center = {.x = 0, .y = 0}},
+            (Circle_t){.radius = 6.2829611, .center = {.x = 0, .y = 10}},
+            (Circle_t){.radius = 9.8120130, .center = {.x = 10, .y = 10}},
+            (Circle_t){.radius = 8.8473499, .center = {.x = 10, .y = 0}},
+        },
+        {
+            (Circle_t){.radius = 4.6337566, .center = {.x = 3.7, .y = 0.37}},
+            (Circle_t){.radius = 9.2579263, .center = {.x = 3.48, .y = 11.82}},
+            (Circle_t){.radius = 2.0560156, .center = {.x = 6, .y = 5}},
+            (Circle_t){.radius = 5.3851648, .center = {.x = 6.72, .y = -2}},
+        }
+    };
 
-    Point_t expected[TEST_SIZE] = {(Point_t){.x = 2.16, .y = 4.1}};
+    Point_t expected[TEST_SIZE] = {
+        (Point_t){.x = 2.16, .y = 4.1},
+        (Point_t){.x = 7.24, .y = 3.36},
+    };
 
     for (int i = 0; i < TEST_SIZE; i++) {
         Circle_t *circles = circle_test[i];
