@@ -60,11 +60,12 @@ Point_t calculate_point(Circle_t circles[4]) {
     for (int i = 0; i < (sizeof(patterns) / sizeof(*patterns)); i++) {
         Circle_t *pattern = patterns[i];
 
-        Point_t p[2] = {0};
-        circle_intersection(pattern[0], pattern[1], &(p[0]), &(p[1]));
+        Point_t p1 = {0};
+        Point_t p2 = {0};
+        circle_intersection(pattern[0], pattern[1], &p1, &p2);
 
-        add_point_count(points, &points_length, p[0]);
-        add_point_count(points, &points_length, p[1]);
+        add_point_count(points, &points_length, p1);
+        add_point_count(points, &points_length, p2);
     }
 
     uint best_pointcount = 0;
