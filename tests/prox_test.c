@@ -7,9 +7,11 @@
 #define EPSILON 0.0001
 
 void test_circle_intersection();
+void test_calculate_point();
 
 int main(int argc, char **argv) {
     test_circle_intersection();
+    test_calculate_point();
 }
 
 bool compare_doubles(double d1, double d2) {
@@ -52,5 +54,25 @@ void test_circle_intersection() {
         (Circle_t){.radius = 5.9637991, .center = (Point_t){.x = 5.13, .y = 6.1}},
         (Point_t){.x = 6, .y = 12}
     );
+}
 
+// https://www.desmos.com/calculator/mtrovlvxyv
+// Used to get the radii and expected points for the tests
+#define TEST_SIZE 1
+void test_calculate_point() {
+
+    Circle_t circle_test[TEST_SIZE][4] = {{
+        (Circle_t){.radius = 4.6341774, .center = {.x = 0, .y = 0}},
+        (Circle_t){.radius = 6.2829611, .center = {.x = 0, .y = 10}},
+        (Circle_t){.radius = 9.812013, .center = {.x = 10, .y = 10}},
+        (Circle_t){.radius = 8.8473499, .center = {.x = 10, .y = 0}},
+    }};
+
+    Point_t expected[TEST_SIZE] = {(Point_t){.x = 2.16, .y = 4.1}};
+
+    for (int i = 0; i < TEST_SIZE; i++) {
+        Circle_t *circles = circle_test[i];
+
+        assert(points_equal(calculate_point(circles), expected[i]) && "Points were NOT equal");
+    }
 }
