@@ -1,7 +1,7 @@
 
 // gcc lib/proximity.c tests/prox_test.c -lm -o test && ./test
 
-#include "../lib/proximity.h"
+#include "../proximity.h"
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>

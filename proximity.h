@@ -18,3 +18,5 @@ Point_t calculate_point(Circle_t[4]);
 ///
 /// The computed points will be set to the passed in `Point_t` pointers.
 int circle_intersection(Circle_t, Circle_t, Point_t *, Point_t *);
+
+int ggf();

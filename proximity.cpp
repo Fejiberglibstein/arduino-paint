@@ -8,12 +8,12 @@
 
 struct PointCount {
     Point_t point;
-    uint count;
+    int count;
 };
 
 void add_point_count(
     struct PointCount points[INTERSECTION_POINTS],
-    uint *point_length,
+    int *point_length,
     Point_t point
 ) {
     for (int i = 0; i < *point_length; i++) {
@@ -53,7 +53,7 @@ Point_t calculate_point(Circle_t circles[4]) {
     // determine which point is most common; this will be our overall
     // intersection point
     struct PointCount points[INTERSECTION_POINTS] = {0};
-    uint points_length = 0;
+    int points_length = 0;
 
     // Go through all pairs of circles and get the two points of intersection
     // between the circles
@@ -68,7 +68,7 @@ Point_t calculate_point(Circle_t circles[4]) {
         add_point_count(points, &points_length, p2);
     }
 
-    uint best_pointcount = 0;
+    int best_pointcount = 0;
 
     // Find the most common point
     for (int i = 0; i < (sizeof(points) / sizeof(*points)); i++) {
@@ -124,4 +124,8 @@ int circle_intersection(Circle_t c1, Circle_t c2, Point_t *res1, Point_t *res2) 
     *res2 = (Point_t){.x = fx - gx, .y = fy - gy};
 
     return 2;
+}
+
+int ggf() {
+    return 0;
 }
