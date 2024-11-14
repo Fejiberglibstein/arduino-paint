@@ -21,7 +21,7 @@ float calc_distance(int echoPin){
   return distance;
 }
 
-// Tests that one echo pin works for the whole corner (two sensors). Not accounting for angle.
+// Tests that one trig pin works for the whole corner (two sensors). Not accounting for angle.
 // Angle needs to be fixed, we get incorrect readings in the middle
 void setup() {
   // put your setup code here, to run once:
