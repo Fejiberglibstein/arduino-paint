@@ -1,12 +1,13 @@
+// https://github.com/adafruit/RGB-matrix-Panel/tree/master
+
 #include <RGBmatrixPanel>
 #include "./proximity.h"
 
-// Test the matrix code
+// Test the matrix functions
 // X (0,31), Y (0,16)
 // Will have to do a transformation on the drawing area to the matrix
-// That is a later issue
-// Set the four corners directly, the transform function is not done :)
-// lets hope the solder worked
+// Set the four corners directl
+// Make sure the soldering worked by filling the screen
 
 #define CLK  8
 #define OE   9
@@ -17,9 +18,12 @@
 
 RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
-// did the solder solder??
-void test_fill(){
-  matrix.fillScreen(f);
+
+void test_fill(int c){
+  matrix.fillScreen(c);
+  delay(1000);
+  matrix.fillScreen(matrix.color(0,0,0));
+  delay(1000);
 }
 
 void test_corners() {
@@ -30,7 +34,7 @@ void test_corners() {
     matrix.drawPixel(0, 15, matrix.Color333(r, g, b));
 }
 
-// holding previous values while updating at different rates. draw a box
+// holding previous values while updating at different rates. draws a box
 void test_edges(uint8_t delay){
   int r, g, b = 7;
   for(uint8_t x=0; x<32; x++) {
@@ -56,22 +60,21 @@ void test_edges(uint8_t delay){
     matrix.drawPixel(x, y, matrixColor333(r, g, b));
     delay(delay);
   }
-
+  delay(500);
+  test_fill(matrix.color(0,0,0));
 }
 
 void setup() {
   // put your setup code here, to run once:
   matrix.begin();
-  test_edges(.5);
-  delay(100);
-  test_edges(.25);
-  delay(100);
-  test_edges(.1);
-  delay(100);
+  test_fill(matrix.color(7,7,7));
+  delay(1000);
+  test_edges(500);
+  test_edges(250);
+  test_edges(100);
   test_corners();
-  delay(100);
-  test_fill();
-  delay(100);
+  delay(1000);
+
 }
 
 void loop() {

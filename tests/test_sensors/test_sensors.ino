@@ -32,7 +32,7 @@ void setup() {
 }
 
 // Can't catch both signals - the second times out
-// Just do twice ig - that does in fact work, just insert a delay in between susequent readings
+// Just do twice - that works, just insert a delay in between susequent readings
 // Try to minimize that
 
 void loop() {
@@ -46,5 +46,5 @@ void loop() {
   Serial.print("Distance Sensor 2: ");
   Serial.println(distance2);
 
-  // just take the smallest of either sensor probably
+  // just take the smallest of either sensor 
 }
