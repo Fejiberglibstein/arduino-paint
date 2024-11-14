@@ -35,41 +35,42 @@ void test_corners() {
 
 // holding previous values while updating at different rates. draws a box
 void test_edges(uint8_t del){
-  int r, g, b = 7;
+  int r, g, b = 2;
+  uint16_t rgb = matrix.Color333(r, g, b);
+  
+  for(uint8_t y=15; y>0; --y){
+    int x = 0;
+    matrix.drawPixel(x, y, rgb);
+    delay(del);
+  }
   for(uint8_t x=0; x<32; x++) {
     int y = 0;
-    matrix.drawPixel(x, y, matrix.Color333(r, g, b));
+    matrix.drawPixel(x, y, rgb);
     delay(del);
   }
 
   for(uint8_t y=1; y<16; y++){
     int x = 31;
-    matrix.drawPixel(x, y, matrix.Color333(r, g, b));
+    matrix.drawPixel(x, y, rgb);
     delay(del);
   }
 
-  for(uint8_t x=31; x>=0; x++){
+  for(uint8_t x=30; x>=0; x--){
     int y = 15;
-    matrix.drawPixel(x, y, matrix.Color333(r, g, b));
+    matrix.drawPixel(x, y, rgb);
     delay(del);
   }
-
-  for(uint8_t y=15; y<=0; y++){
-    int x = 0;
-    matrix.drawPixel(x, y, matrix.Color333(r, g, b));
-    delay(del);
-  }
-  delay(500);
   test_fill(matrix.Color333(0,0,0));
 }
 
 void setup() {
   // put your setup code here, to run once:
   matrix.begin();
+  Serial.begin(115200);
   test_fill(matrix.Color333(7,7,7));
   delay(1000);
-  test_edges(500);
-  test_edges(250);
+  // test_edges(500);
+  // test_edges(250);
   test_edges(100);
   test_corners();
   delay(1000);
