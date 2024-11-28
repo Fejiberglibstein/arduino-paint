@@ -18,4 +18,4 @@ typedef struct {
 // sensor should be fine. May have to do trigger twice per corner in
 // case the first times out.
 
-void send_ping(Corner[CORNERS], Circle );
+void send_ping(Corner[CORNERS], Circle *[CORNERS]);

@@ -3,7 +3,7 @@ typedef struct {
     float y;
 } Point;
 
-typedef struct {
+typdef struct {
     float radius;
     Point center;
 } Circle;
