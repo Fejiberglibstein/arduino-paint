@@ -7,17 +7,17 @@
 #define EPSILON 0.0001
 
 struct PointCount {
-    Point_t point;
+    Point point;
     int count;
 };
 
 void add_point_count(
     struct PointCount points[INTERSECTION_POINTS],
     int *point_length,
-    Point_t point
+    Point point
 ) {
     for (int i = 0; i < *point_length; i++) {
-        Point_t cur = points[i].point;
+        Point cur = points[i].point;
 
         // Same point
         if (fabs(cur.x - point.x) < EPSILON && fabs(cur.y - point.y) < EPSILON) {
@@ -30,7 +30,7 @@ void add_point_count(
     points[*point_length] = (struct PointCount){.point = point, .count = 1};
 }
 
-Point_t calculate_point(Circle_t circles[4]) {
+Point calculate_point(Circle circles[4]) {
     // We need to get the intersection point(s) between each pair of circles. We
     // can do this by creating an array of pairs of circles and iterating over
     // that to find the most common point where the circles overlap
@@ -40,7 +40,7 @@ Point_t calculate_point(Circle_t circles[4]) {
     //
     // Removing this number of will require `INTERSECTION_POINTS` to be changed
     // as well
-    Circle_t patterns[6][2] = {
+    Circle patterns[6][2] = {
         {circles[0], circles[1]},
         {circles[0], circles[2]},
         {circles[0], circles[3]},
@@ -58,10 +58,10 @@ Point_t calculate_point(Circle_t circles[4]) {
     // Go through all pairs of circles and get the two points of intersection
     // between the circles
     for (int i = 0; i < (sizeof(patterns) / sizeof(*patterns)); i++) {
-        Circle_t *pattern = patterns[i];
+        Circle *pattern = patterns[i];
 
-        Point_t p1 = {0};
-        Point_t p2 = {0};
+        Point p1 = {0};
+        Point p2 = {0};
         circle_intersection(pattern[0], pattern[1], &p1, &p2);
 
         add_point_count(points, &points_length, p1);
@@ -80,7 +80,7 @@ Point_t calculate_point(Circle_t circles[4]) {
     return points[best_pointcount].point;
 }
 
-int circle_intersection(Circle_t c1, Circle_t c2, Point_t *res1, Point_t *res2) {
+int circle_intersection(Circle c1, Circle c2, Point *res1, Point *res2) {
     // https://gist.github.com/jupdike/bfe5eb23d1c395d8a0a1a4ddd94882ac
     // https://math.stackexchange.com/questions/256100/how-can-i-find-the-points-at-which-two-circles-intersect
 
@@ -120,8 +120,8 @@ int circle_intersection(Circle_t c1, Circle_t c2, Point_t *res1, Point_t *res2) 
     float fy = (y1 + y2) / 2 + a * (y2 - y1);
     float gy = c * (x1 - x2) / 2;
 
-    *res1 = (Point_t){.x = fx + gx, .y = fy + gy};
-    *res2 = (Point_t){.x = fx - gx, .y = fy - gy};
+    *res1 = (Point){.x = fx + gx, .y = fy + gy};
+    *res2 = (Point){.x = fx - gx, .y = fy - gy};
 
     return 2;
 }

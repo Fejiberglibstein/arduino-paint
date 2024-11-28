@@ -1,7 +1,7 @@
 // #include <Arduino.h>
 #include "./proximity.h"
 
-typedef struct{
+typedef struct {
     int trigPin;
     int echoPinLeft;
     int echoPinRight;
@@ -9,7 +9,7 @@ typedef struct{
     float y;
 } Corner;
 
-
+#define CORNERS 4
 
 // Calculate the four distances from each corner in the arena
 // Set each to high then calculate the distance
@@ -18,4 +18,4 @@ typedef struct{
 // sensor should be fine. May have to do trigger twice per corner in
 // case the first times out.
 
-Circle_t** send_ping(Corner[]);
+void send_ping(Corner[CORNERS], Circle );
