@@ -1,9 +1,12 @@
+#ifndef PROXIMITY_H
+#define PROXIMITY_H
+
 typedef struct {
     float x;
     float y;
 } Point;
 
-typdef struct {
+typedef struct {
     float radius;
     Point center;
 } Circle;
@@ -19,4 +22,4 @@ Point calculate_point(Circle[4]);
 /// The computed points will be set to the passed in `Point_t` pointers.
 int circle_intersection(Circle, Circle, Point *, Point *);
 
-int ggf();
+#endif
