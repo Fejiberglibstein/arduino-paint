@@ -1,23 +1,28 @@
 #include "./sensors.h"
+#include <Arduino.h>
 
-float calc_distance(int trigPin, int echoPin) {
-    digitalWrite(trigPin, LOW);
+float calc_distance(int pin) {
+ //set the pin as output for the trig pin part
+    pinMode(pin, OUTPUT);
+    digitalWrite(pin, LOW);
     delayMicroseconds(2);
     // Sets the trigPin on HIGH state for 10 micro seconds
-    digitalWrite(trigPin, HIGH);
+    digitalWrite(pin, HIGH);
     delayMicroseconds(10);
-    digitalWrite(trigPin, LOW);
+    digitalWrite(pin, LOW);
+    //set the pin as input for the echo section
+    pinMode(pin, INPUT);
     // Reads the echoPin, returns the sound wave travel time in microseconds
-    long duration = pulseIn(echoPin, HIGH);
+    long duration = pulseIn(pin, HIGH);
     // Calculating the distance
     float distance = duration * 0.034 / 2;
     return distance;
 }
 
 float calc_corner_dist(Corner corner) {
-    float dist1 = calc_distance(corner.trigPin, corner.echoPinLeft);
+    float dist1 = calc_distance(corner.io_pin_left);
     delay(500);
-    float dist2 = calc_distance(corner.trigPin, corner.echoPinRight);
+    float dist2 = calc_distance(corner.trigPin, io_pin_right);
     delay(500);
     // just take the smallest of either sensor probably
     return (dist1 < dist2) ? dist1 : dist2;

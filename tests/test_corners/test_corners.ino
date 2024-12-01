@@ -1,6 +1,8 @@
 #include "sensors.h"
 
-// Test all four sensors in one arena, try to only use two echo pins?
+//OLD TEST- new method switch between mode for every pin
+
+// Test all four sensors in one arena, using 
 // Lay out specific points in the arena so thy can be verified
 // Each trigger controls one corner
 // If this works, add the other four
@@ -11,12 +13,11 @@ const int trigPin1 = 12;
 const int trigPin2 = 12;
 const int trigPin3 = 0;
 const int trigPin4 = 1;
-// Potentially use two pins with a decoder?
 
 // Stagger these pins so one sensor of each corner is mapped to each
 // Later probably make a struct for a corner
 
-const int echo1 = A5; // should be fine with a 4-1 mux
+const int echo1 = A5;
 // const int echo2 = A4;
 
 float distance1;

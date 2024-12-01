@@ -1,6 +1,6 @@
 #include "sensors.h"
-#ifndef SENSORS_H
-#define SENSORS_H
+#ifndef POINT_H
+#define POINT_H
 
 // Will scale a point in world-coords to fit within the screen-coords.
 //

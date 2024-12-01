@@ -1,11 +1,11 @@
 #include "./proximity.h"
-#ifndef PROXIMITY_H
-#define PROXIMITY_H
+#ifndef SENSORS_H
+#define SENSORS_H
 
 typedef struct {
-    int trigPin;
-    int echoPinLeft;
-    int echoPinRight;
+    int io_pin_left;
+    int io_pin_right;
+
     float x;
     float y;
 } Corner;
