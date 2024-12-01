@@ -19,7 +19,7 @@ Point sensor_coords[4] = {
     (Point){.x = 0,  .y = 5},
 };
 
-// https://www.desmos.com/geometry/0lriyvlijh
+// https://www.desmos.com/geometry/itrkpaghqt
 // Used the desmos to calculate these points
 //
 // These are the corners of the drawing area
