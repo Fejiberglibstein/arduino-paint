@@ -16,7 +16,10 @@ void setup_screen() {
 
 
 void setup_sensors() {
-    // TODO
+    // TODO: you will need to do this for all trigpins and echos i think
+    pinMode(trigPin, OUTPUT);
+    pinMode(echo1, INPUT);
+    pinMode(echo2, INPUT);
 }
 
 Corner corners[4] = {
