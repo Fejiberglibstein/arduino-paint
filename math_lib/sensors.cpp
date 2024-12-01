@@ -33,7 +33,7 @@ float calc_corner_dist(Corner corner) {
 // Since it's one corner at a time, borrowing an echo pin from another
 // sensor should be fine. May have to do trigger twice per corner in
 // case the first times out.
-void send_ping(Corner corners[CORNERS], Circle *circles[CORNERS]) {
+void send_ping(Corner corners[CORNERS], Circle **circles) {
     for (int i = 0; i < CORNERS; i++) {
         circles[i]->center = Point{.x = corners[i].x, .y = corners[i].y};
         circles[i]->radius = calc_corner_dist(corners[i]);

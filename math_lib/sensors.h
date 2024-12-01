@@ -38,6 +38,6 @@ Point area_coords[4] = {
 // The circles returned will have their x and y as the same x and y of the
 // corners, and the radii of the circle will be the distance returned by the
 // proximity sensors
-void send_ping(Corner[CORNERS], Circle *[CORNERS]);
+void send_ping(Corner[CORNERS], Circle **);
 
 #endif 
