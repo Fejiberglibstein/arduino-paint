@@ -1,7 +1,7 @@
 
 // gcc lib/proximity.c tests/proxest.c -lm -o test && ./test
 
-#include "../proximity.h"
+#include "../point_translation.h"
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
@@ -11,10 +11,12 @@
 
 void test_circle_intersection();
 void test_calculate_point();
+void test_translation();
 
 int main(int argc, char **argv) {
     test_circle_intersection();
     test_calculate_point();
+    test_translation();
 }
 
 bool compare_doubles(double d1, double d2) {
@@ -89,4 +91,24 @@ void test_calculate_point() {
 
         assert(points_equal(calculate_point(circles), expected[i]) && "Points were NOT equal");
     }
+}
+
+void test_translation() {
+    Point res;
+
+    res = scale_point(area_coords[0]);
+    assert(res.x == 0);
+    assert(res.y == 0);
+
+    res = scale_point(area_coords[1]);
+    assert(res.x == 32);
+    assert(res.y == 0);
+
+    res = scale_point(area_coords[2]);
+    assert(res.x == 32);
+    assert(res.y == 16);
+
+    res = scale_point(area_coords[3]);
+    assert(res.x == 0);
+    assert(res.y == 16);
 }
