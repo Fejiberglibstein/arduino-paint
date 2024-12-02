@@ -2,9 +2,11 @@
 #include <assert.h>
 #include <math.h>
 #include <sys/types.h>
+#include <Arduino.h>
 
 #define INTERSECTION_POINTS 12
-#define EPSILON 0.0001
+#define EPSILON 0.8
+#define MINIMUM_RADIUS 2
 
 struct PointCount {
     Point point;
@@ -16,6 +18,9 @@ void add_point_count(
     int *point_length,
     Point point
 ) {
+    if (point.x == 0 || point.y == 0) {
+        return;
+    }
     for (int i = 0; i < *point_length; i++) {
         Point cur = points[i].point;
 
@@ -34,6 +39,15 @@ Point calculate_point(Circle circles[4]) {
     // We need to get the intersection point(s) between each pair of circles. We
     // can do this by creating an array of pairs of circles and iterating over
     // that to find the most common point where the circles overlap
+
+    for (int i = 0; i < 4; i++) {
+        if (circles[i].radius < MINIMUM_RADIUS) {
+            return (Point) {
+                .x = -1,
+                .y = -1,
+            };
+        }
+    }
 
     // TODO: We probably don't need to do this many checks, we could probably
     // simplify to just adjacent circles?
@@ -120,8 +134,8 @@ int circle_intersection(Circle c1, Circle c2, Point *res1, Point *res2) {
     float fy = (y1 + y2) / 2 + a * (y2 - y1);
     float gy = c * (x1 - x2) / 2;
 
-    *res1 = (Point){.x = fx + gx, .y = fy + gy};
-    *res2 = (Point){.x = fx - gx, .y = fy - gy};
+    *res1 = (Point){.x = fabs(fx + gx), .y = fabs(fy + gy)};
+    *res2 = (Point){.x = fabs(fx - gx), .y = fabs(fy - gy)};
 
     return 2;
 }

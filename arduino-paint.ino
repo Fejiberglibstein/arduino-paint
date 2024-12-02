@@ -11,7 +11,7 @@
 #define B   A1
 #define C   A2
 
-//RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
+RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
 Corner corners[4] = {
     (Corner){
@@ -49,7 +49,7 @@ Corner corners[4] = {
 };
 
 void setup_screen() {
-    //matrix.begin();
+    matrix.begin();
 }
 
 
@@ -62,21 +62,24 @@ void setup_sensors() {
 
 void setup() {
     Serial.begin(115200);
-    //setup_screen();
+    setup_screen();
     setup_sensors();
 }
 
+int time = 0;
+
 void loop() {
     Circle circles[4] = {0};
+    time += 1;
 
-    Serial.println("-------------------------------------");
+    matrix.drawPixel(0, 0, matrix.Color333(7, 7, 7));
 
     // ping all the corners and get their returned distance into an array of
     // circles
-    send_ping(corners, (Circle **)&circles);
+    send_ping(corners, circles);
 
     // calculate the point from our four circles
-    // Point p = calculate_point(circles);
+    Point p = calculate_point(circles);
 
     // Serial.print("x: ");
     // Serial.print(p.x);
@@ -84,19 +87,20 @@ void loop() {
     // Serial.println(p.y);
     // Serial.println();
 
+
     // Translate the calculate point's coordinates into from world coordinates
     // to screen coordinates
-    
-    // if (p.x != -1 && p.y != -1) {
-    //  p = scale_point(p);
-    // }
+    if (p.x != -1 && p.y != -1) {
+        p = scale_point(p);
+    }
+    matrix.drawPixel(0, 0, matrix.Color333(time, 0, 0));
 
     // Swapping the x and y here, check the note I left in
     // `point_translation.cpp`
 
-    // if (p.x != -1 && p.y != -1) {
-    // matrix.drawPixel(p.y, p.x, COLOR);
-    // }
+    if (p.x != -1 && p.y != -1) {
+        matrix.drawPixel(p.x, p.y, COLOR);
+    }
 
 }
 
