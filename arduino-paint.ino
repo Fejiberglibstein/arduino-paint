@@ -15,7 +15,6 @@ RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
 Corner corners[4] = {
     (Corner){
-        // TODO
         .io_pin_left = A3,
         .io_pin_right = A4,
 
@@ -23,23 +22,20 @@ Corner corners[4] = {
         .y = sensor_coords[0].y,
     },
     (Corner){
-        // TODO MOVE AROUND NUMBERS vwurhrui
-        .io_pin_left = -1, // 0 
+        .io_pin_left = 0, // 0
         .io_pin_right = A5,
 
         .x = sensor_coords[1].x,
         .y = sensor_coords[1].y,
     },
     (Corner){
-        // TODO
-        .io_pin_left = -1, // 1
+        .io_pin_left = 1, // 1
         .io_pin_right = 11,
 
         .x = sensor_coords[2].x,
         .y = sensor_coords[2].y,
     },
     (Corner){
-        // TODO
         .io_pin_left = 12,
         .io_pin_right = 13,
 
@@ -66,13 +62,17 @@ void setup() {
     setup_sensors();
 }
 
-int time = 0;
+int intersections = 0;
+
+void display_intersections(int k) {
+    for (int i = 15; i >= 0; i --) {
+        int r = (k >> i & 1) * 7;
+        matrix.drawPixel(0, i, matrix.Color333(r, r, r));
+    }
+}
 
 void loop() {
     Circle circles[4] = {0};
-    time += 1;
-
-    matrix.drawPixel(0, 0, matrix.Color333(7, 7, 7));
 
     // ping all the corners and get their returned distance into an array of
     // circles
@@ -80,6 +80,7 @@ void loop() {
 
     // calculate the point from our four circles
     Point p = calculate_point(circles);
+    delay(1000);
 
     // Serial.print("x: ");
     // Serial.print(p.x);
@@ -92,15 +93,18 @@ void loop() {
     // to screen coordinates
     if (p.x != -1 && p.y != -1) {
         p = scale_point(p);
+        intersections += 1;
+        display_intersections(intersections);
+
+        if (p.x != -1 && p.y != -1) {
+            matrix.drawPixel(p.x, p.y, COLOR);
+        }
     }
-    matrix.drawPixel(0, 0, matrix.Color333(time, 0, 0));
 
     // Swapping the x and y here, check the note I left in
     // `point_translation.cpp`
 
-    if (p.x != -1 && p.y != -1) {
-        matrix.drawPixel(p.x, p.y, COLOR);
-    }
 
 }
+
 
