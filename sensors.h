@@ -1,4 +1,4 @@
-#include "./proximity.h"
+#include "proximity.h"
 #ifndef SENSORS_H
 #define SENSORS_H
 
