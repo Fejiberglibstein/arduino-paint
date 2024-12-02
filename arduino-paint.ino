@@ -11,7 +11,7 @@
 #define B   A1
 #define C   A2
 
-RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
+//RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 
 Corner corners[4] = {
     (Corner){
@@ -23,16 +23,16 @@ Corner corners[4] = {
         .y = sensor_coords[0].y,
     },
     (Corner){
-        // TODO
-        .io_pin_left = A5,
-        .io_pin_right = 0,
+        // TODO MOVE AROUND NUMBERS vwurhrui
+        .io_pin_left = -1, // 0 
+        .io_pin_right = A5,
 
         .x = sensor_coords[1].x,
         .y = sensor_coords[1].y,
     },
     (Corner){
         // TODO
-        .io_pin_left = 1,
+        .io_pin_left = -1, // 1
         .io_pin_right = 11,
 
         .x = sensor_coords[2].x,
@@ -49,7 +49,7 @@ Corner corners[4] = {
 };
 
 void setup_screen() {
-    matrix.begin();
+    //matrix.begin();
 }
 
 
@@ -62,27 +62,41 @@ void setup_sensors() {
 
 void setup() {
     Serial.begin(115200);
-    setup_screen();
+    //setup_screen();
     setup_sensors();
 }
 
 void loop() {
     Circle circles[4] = {0};
 
+    Serial.println("-------------------------------------");
+
     // ping all the corners and get their returned distance into an array of
     // circles
-    send_ping(corners, &circles);
+    send_ping(corners, (Circle **)&circles);
 
     // calculate the point from our four circles
-    Point p = calculate_point(circles);
+    // Point p = calculate_point(circles);
+
+    // Serial.print("x: ");
+    // Serial.print(p.x);
+    // Serial.print(", y: ");
+    // Serial.println(p.y);
+    // Serial.println();
 
     // Translate the calculate point's coordinates into from world coordinates
     // to screen coordinates
-    p = scale_point(p);
+    
+    // if (p.x != -1 && p.y != -1) {
+    //  p = scale_point(p);
+    // }
 
     // Swapping the x and y here, check the note I left in
     // `point_translation.cpp`
-    matrix.drawPixel(p.y, p.x, COLOR);
+
+    // if (p.x != -1 && p.y != -1) {
+    // matrix.drawPixel(p.y, p.x, COLOR);
+    // }
 
 }
 
