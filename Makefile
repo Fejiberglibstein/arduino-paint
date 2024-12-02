@@ -1,11 +1,11 @@
-project = paint-arduino.ino
+project = arduino-paint.ino
 
 port = ${shell find /dev/ttyACM*}
 
 all: compile upload monitor
 
 
-compile: *.ino *.cpp *.c *.h
+compile: 
 	arduino-cli compile --fqbn arduino:avr:uno ${project}
 	touch compile
 
