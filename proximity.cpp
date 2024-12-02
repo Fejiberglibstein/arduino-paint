@@ -5,8 +5,9 @@
 #include <Arduino.h>
 
 #define INTERSECTION_POINTS 12
-#define EPSILON 0.8
+#define EPSILON 1.3
 #define MINIMUM_RADIUS 2
+#define MINIMUM_INTERSECTION 2
 
 struct PointCount {
     Point point;
@@ -25,14 +26,14 @@ void add_point_count(
         Point cur = points[i].point;
 
         // Same point
-        if (fabs(cur.x - point.x) < EPSILON && fabs(cur.y - point.y) < EPSILON) {
+        if (fabs(cur.x - point.x) <= EPSILON && fabs(cur.y - point.y) <= EPSILON) {
             points[i].count += 1;
             return;
         }
     }
 
-    *point_length += 1;
     points[*point_length] = (struct PointCount){.point = point, .count = 1};
+    *point_length += 1;
 }
 
 Point calculate_point(Circle circles[4]) {
@@ -40,9 +41,11 @@ Point calculate_point(Circle circles[4]) {
     // can do this by creating an array of pairs of circles and iterating over
     // that to find the most common point where the circles overlap
 
+    Serial.println("\n\n\n\n\n");
     for (int i = 0; i < 4; i++) {
+        Serial.println(circles[i].radius);
         if (circles[i].radius < MINIMUM_RADIUS) {
-            return (Point) {
+            return (Point){
                 .x = -1,
                 .y = -1,
             };
@@ -71,6 +74,7 @@ Point calculate_point(Circle circles[4]) {
 
     // Go through all pairs of circles and get the two points of intersection
     // between the circles
+    Serial.println();
     for (int i = 0; i < (sizeof(patterns) / sizeof(*patterns)); i++) {
         Circle *pattern = patterns[i];
 
@@ -78,18 +82,41 @@ Point calculate_point(Circle circles[4]) {
         Point p2 = {0};
         circle_intersection(pattern[0], pattern[1], &p1, &p2);
 
+        Serial.print(p1.x);
+        Serial.print(", ");
+        Serial.print(p1.y);
+        Serial.print("\t\t");
+        Serial.print(p2.x);
+        Serial.print(", ");
+        Serial.println(p2.y);
+
+
         add_point_count(points, &points_length, p1);
         add_point_count(points, &points_length, p2);
     }
 
     int best_pointcount = 0;
+    bool found = false;
 
     // Find the most common point
     for (int i = 0; i < (sizeof(points) / sizeof(*points)); i++) {
-        if (points[i].count > points[best_pointcount].count) {
+        Serial.print(points[i].count);
+        Serial.print(" ");
+        if (points[i].count >= points[best_pointcount].count) {
             best_pointcount = i;
+            if (points[i].count >= MINIMUM_INTERSECTION) {
+                found = true;
+            }
         }
     }
+
+    if (!found) {
+        return (Point){
+            .x = -1,
+            .y = -1,
+        };
+    }
+    Serial.println("\nFOUND");
 
     return points[best_pointcount].point;
 }

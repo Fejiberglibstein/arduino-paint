@@ -4,8 +4,8 @@
 // change around the points and recalculate on desmos. Currently `sensor_coords`
 // are horizontally scaled which makes `area_coords` be vertically scaled. 
 // You will need to flip this to make the screen horizontal
-#define SCREEN_PIXEL_HEIGHT 32
-#define SCREEN_PIXEL_WIDTH 16
+#define SCREEN_PIXEL_HEIGHT 16
+#define SCREEN_PIXEL_WIDTH 32
 
 Point scale_point(Point pt) {
     Point bottom_left = area_coords[0];

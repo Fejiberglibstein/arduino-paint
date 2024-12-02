@@ -5,7 +5,7 @@
 #define SENSOR_ANGLE 45
 
 // (SENSOR_TO_CENTER * cos(SENSOR_ANGLE / 2))
-const int H = 6.46715673;
+const float H = 6.46715673;
 
 
 Point sensor_coords[4] = {
@@ -27,12 +27,13 @@ Point area_coords[4] = {
 
 float calc_distance(int pin) {
  //set the pin as output for the trig pin part
+    delayMicroseconds(100);
     pinMode(pin, OUTPUT);
     digitalWrite(pin, LOW);
-    delayMicroseconds(2);
+    delayMicroseconds(6);
     // Sets the trigPin on HIGH state for 10 micro seconds
     digitalWrite(pin, HIGH);
-    delayMicroseconds(10);
+    delayMicroseconds(20);
     digitalWrite(pin, LOW);
     //set the pin as input for the echo section
     pinMode(pin, INPUT);
@@ -40,7 +41,7 @@ float calc_distance(int pin) {
     long duration = pulseIn(pin, HIGH);
     // Calculating the distance
     float distance = duration * 0.034 / 2;
-    
+
     // pinMode(pin, OUTPUT);
     return distance;
 }
@@ -53,11 +54,15 @@ float calc_corner_dist(Corner corner) {
     float dist2 = calc_distance(corner.io_pin_right);
     // just take the smallest of either sensor
 
-    // TODO: average    v
-    // return (dist1 + dist2) * H * 0.5;
+    /*Serial.print(dist1);*/
+    /*Serial.print("\t");*/
+    /*Serial.print(dist2);*/
+    /*Serial.println();*/
+
     if (dist1 == 0 || dist2 == 0) {
         return (dist1 == 0) ? dist2 : dist1;
     }
+    /*return (dist1 + dist2) * H * 0.5;*/
     return (dist1 < dist2) ? dist1 : dist2;
 }
 
@@ -67,6 +72,7 @@ float calc_corner_dist(Corner corner) {
 // sensor should be fine. May have to do trigger twice per corner in
 // case the first times out.
 void send_ping(Corner corners[CORNERS], Circle *circles) {
+    Serial.println("\n\n\n\n\n\n\n");
     for (int i = 0; i < 4; i++) {
         circles[i].center = Point{.x = corners[i].x, .y = corners[i].y};
         circles[i].radius = calc_corner_dist(corners[i]);
