@@ -4,27 +4,54 @@
 
 ---
 
+
 # Project setup
 
 - Print everything found in `models/`
 
-- Construct a lego frame 48x24 studs, (41.2 x 20.6 cm), and place 2 sensors in
-  each insert, 6 studs diagonally from each corner.
-  - You must also place a 17.8 x 8.9 cm rectangle oriented vertically in the
-    center of the lego frame
+### Constructing the frame
+- Construct a lego frame 48x24 studs, (41.2 x 20.6 cm)
 
-- In the arduino IDE, copy all the `.h` files and their respective `.cpp` file into
-  the arduino library folder into the folder called `math_lib/`.
+- Place a 17.8 x 8.9 cm rectangle oriented vertically in the center of the lego
+  frame
+
+
+### Wiring up
+
+- Place a sensor in each sensor frame.
+  - Take each sensor frame and put 2 inside of each base
+    (`./models/lego_base1.stl` and `./models/lego_base2.stl`)
 
 - You must wire the proximity sensors all together on 2 breadboards.
     - The trigger and echo pins of each sensor will be connected to the same
       rail on the breadboard
+    - You can follow the diagram found in `./circuit_diagram.png`
 
-- You must also wire the LED matrix together to the arduino
+- You must connect the LED matrix to the arduino
+
+<details>
+  <summary><b>Picture of setup</b></summary>
+
+  ![setup image](./documentation/setup.jpg)
+</details>
+
 
 # Using and interacting the project
 
-- Plug the arduino into a computer and compile and upload the sketch.
+### Compiling & Uploading
+
+- Plug the arduino into a computer and compile and upload the sketch by simply
+  running `make`, assuming you are on mac/linux and have arduino-cli installed.
+
+> [!note] Using the arduino IDE
+> If you are on windows and/or using the arduino IDE, follow these steps:
+> - In the arduino IDE, copy all the `.h` files and their respective `.cpp` files into
+>   the arduino library folder into a folder called `math_lib/`.
+> - In `arduino-paint.ino`, change the first #include line to the following
+> ```diff
+> - #include "point_translation.h"
+> + #include <point_translation.h>
+> ```
 
 - Once it is on, you will be able to trace on the central rectangle and see the
   same trace appear on the LED screen.
