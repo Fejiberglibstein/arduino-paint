@@ -72,7 +72,7 @@ float calc_corner_dist(Corner corner) {
 // sensor should be fine. May have to do trigger twice per corner in
 // case the first times out.
 void send_ping(Corner corners[CORNERS], Circle *circles) {
-    Serial.println("\n\n\n\n\n\n\n");
+    /*Serial.println("\n\n\n\n\n\n\n");*/
     for (int i = 0; i < 4; i++) {
         circles[i].center = Point{.x = corners[i].x, .y = corners[i].y};
         circles[i].radius = calc_corner_dist(corners[i]);

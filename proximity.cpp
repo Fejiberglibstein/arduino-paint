@@ -41,9 +41,9 @@ Point calculate_point(Circle circles[4]) {
     // can do this by creating an array of pairs of circles and iterating over
     // that to find the most common point where the circles overlap
 
-    Serial.println("\n\n\n\n\n");
+    /*Serial.println("\n\n\n\n\n");*/
     for (int i = 0; i < 4; i++) {
-        Serial.println(circles[i].radius);
+        /*Serial.println(circles[i].radius);*/
         if (circles[i].radius < MINIMUM_RADIUS) {
             return (Point){
                 .x = -1,
@@ -74,7 +74,7 @@ Point calculate_point(Circle circles[4]) {
 
     // Go through all pairs of circles and get the two points of intersection
     // between the circles
-    Serial.println();
+    /*Serial.println();*/
     for (int i = 0; i < (sizeof(patterns) / sizeof(*patterns)); i++) {
         Circle *pattern = patterns[i];
 
@@ -82,13 +82,13 @@ Point calculate_point(Circle circles[4]) {
         Point p2 = {0};
         circle_intersection(pattern[0], pattern[1], &p1, &p2);
 
-        Serial.print(p1.x);
-        Serial.print(", ");
-        Serial.print(p1.y);
-        Serial.print("\t\t");
-        Serial.print(p2.x);
-        Serial.print(", ");
-        Serial.println(p2.y);
+        /*Serial.print(p1.x);*/
+        /*Serial.print(", ");*/
+        /*Serial.print(p1.y);*/
+        /*Serial.print("\t\t");*/
+        /*Serial.print(p2.x);*/
+        /*Serial.print(", ");*/
+        /*Serial.println(p2.y);*/
 
 
         add_point_count(points, &points_length, p1);
@@ -100,8 +100,8 @@ Point calculate_point(Circle circles[4]) {
 
     // Find the most common point
     for (int i = 0; i < (sizeof(points) / sizeof(*points)); i++) {
-        Serial.print(points[i].count);
-        Serial.print(" ");
+        /*Serial.print(points[i].count);*/
+        /*Serial.print(" ");*/
         if (points[i].count >= points[best_pointcount].count) {
             best_pointcount = i;
             if (points[i].count >= MINIMUM_INTERSECTION) {
@@ -116,7 +116,7 @@ Point calculate_point(Circle circles[4]) {
             .y = -1,
         };
     }
-    Serial.println("\nFOUND");
+    /*Serial.println("\nFOUND");*/
 
     return points[best_pointcount].point;
 }

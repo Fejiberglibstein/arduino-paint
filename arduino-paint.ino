@@ -57,7 +57,7 @@ void setup_sensors() {
 }
 
 void setup() {
-    Serial.begin(115200);
+    // Serial.begin(115200);
     setup_screen();
     setup_sensors();
 }
@@ -80,7 +80,6 @@ void loop() {
 
     // calculate the point from our four circles
     Point p = calculate_point(circles);
-    delay(1000);
 
     // Serial.print("x: ");
     // Serial.print(p.x);
