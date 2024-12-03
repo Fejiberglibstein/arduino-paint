@@ -161,8 +161,8 @@ int circle_intersection(Circle c1, Circle c2, Point *res1, Point *res2) {
     float fy = (y1 + y2) / 2 + a * (y2 - y1);
     float gy = c * (x1 - x2) / 2;
 
-    *res1 = (Point){.x = fabs(fx + gx), .y = fabs(fy + gy)};
-    *res2 = (Point){.x = fabs(fx - gx), .y = fabs(fy - gy)};
+    *res1 = (Point){.x = fx + gx, .y = fy + gy};
+    *res2 = (Point){.x = fx - gx, .y = fy - gy};
 
     return 2;
 }
