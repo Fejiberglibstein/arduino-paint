@@ -30,10 +30,10 @@ float calc_distance(int pin) {
     delayMicroseconds(100);
     pinMode(pin, OUTPUT);
     digitalWrite(pin, LOW);
-    delayMicroseconds(6);
+    delayMicroseconds(2);
     // Sets the trigPin on HIGH state for 10 micro seconds
     digitalWrite(pin, HIGH);
-    delayMicroseconds(20);
+    delayMicroseconds(10);
     digitalWrite(pin, LOW);
     //set the pin as input for the echo section
     pinMode(pin, INPUT);
