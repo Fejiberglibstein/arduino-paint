@@ -54,7 +54,8 @@
 - Plug the arduino into a computer and compile and upload the sketch by simply
   running `make`, assuming you are on mac/linux and have arduino-cli installed.
 
-> [!WARNING] Using the arduino IDE
+> [!WARNING] 
+> ### Using the arduino IDE
 > If you are on windows and/or using the arduino IDE, follow these steps:
 > - In the arduino IDE, copy all the `.h` files and their respective `.cpp` files into
 >   the arduino library folder into a folder called `math_lib/`.
