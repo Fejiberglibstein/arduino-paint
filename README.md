@@ -40,11 +40,12 @@
 
 - Connect the LED matrix to the arduino.
 
-<details>
-  <summary><b>`[SPOILER:]` Picture of setup</b></summary>
 
-  ![setup image](./documentation/setup.jpg)
-</details>
+> <details>
+>  <summary><b><code>  SPOILER  </code> Picture of setup</b></summary>
+>
+>  ![setup image](./documentation/setup.jpg)
+> </details>
 
 
 # Using and interacting the project
