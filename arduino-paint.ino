@@ -2,7 +2,7 @@
 #include <RGBmatrixPanel.h>
 
 // IDK how colors work for this, 
-#define COLOR matrix.Color333(7, 7, 7)
+#define COLOR matrix.Color333(7, 0, 0)
 
 #define CLK  8
 #define OE   9
@@ -63,11 +63,12 @@ void setup() {
 }
 
 int intersections = 0;
+int real_intersections = 0;
 
-void display_intersections(int k) {
+void binary_display(int k, int loc) {
     for (int i = 15; i >= 0; i --) {
         int r = (k >> i & 1) * 7;
-        matrix.drawPixel(0, i, matrix.Color333(r, r, r));
+        matrix.drawPixel(loc, i, matrix.Color333(r, r, r));
     }
 }
 
@@ -81,21 +82,16 @@ void loop() {
     // calculate the point from our four circles
     Point p = calculate_point(circles);
 
-    // Serial.print("x: ");
-    // Serial.print(p.x);
-    // Serial.print(", y: ");
-    // Serial.println(p.y);
-    // Serial.println();
-
-
-    // Translate the calculate point's coordinates into from world coordinates
-    // to screen coordinates
     if (p.x != -1 && p.y != -1) {
+        // Translate the calculate point's coordinates into from world coordinates
+        // to screen coordinates
         p = scale_point(p);
         intersections += 1;
-        display_intersections(intersections);
+        // binary_display(intersections, 0);
 
         if (p.x != -1 && p.y != -1) {
+            real_intersections += 1;
+            // binary_display(real_intersections, 1);
             matrix.drawPixel(p.x, p.y, COLOR);
         }
     }

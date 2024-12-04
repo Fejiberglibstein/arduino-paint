@@ -27,7 +27,7 @@ Point area_coords[4] = {
 
 float calc_distance(int pin) {
  //set the pin as output for the trig pin part
-    delayMicroseconds(100);
+    delayMicroseconds(50);
     pinMode(pin, OUTPUT);
     digitalWrite(pin, LOW);
     delayMicroseconds(2);
@@ -40,7 +40,7 @@ float calc_distance(int pin) {
     // Reads the echoPin, returns the sound wave travel time in microseconds
     long duration = pulseIn(pin, HIGH);
     // Calculating the distance
-    float distance = duration * 0.034 / 2;
+    float distance = duration * 0.0343;
 
     // pinMode(pin, OUTPUT);
     return distance;
