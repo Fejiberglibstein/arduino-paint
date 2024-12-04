@@ -41,7 +41,7 @@
 - Connect the LED matrix to the arduino.
 
 <details>
-  <summary><b>!! Picture of setup !!</b></summary>
+  <summary><b>`[SPOILER:]` Picture of setup</b></summary>
 
   ![setup image](./documentation/setup.jpg)
 </details>
